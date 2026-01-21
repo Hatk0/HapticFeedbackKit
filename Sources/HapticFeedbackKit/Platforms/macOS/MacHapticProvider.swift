@@ -1,12 +1,16 @@
 #if os(macOS)
 import AppKit
 
+/// macOS provider that maps patterns to `NSHapticFeedbackManager`.
 final class MacHapticProvider: HapticProvider {
     
+    /// macOS supports basic system haptics.
     var supportsHaptics: Bool { true }
 
+    /// No preparation required on macOS.
     func prepare(_ pattern: HapticPattern) {}
 
+    /// Plays the mapped macOS haptic feedback pattern.
     func play(_ pattern: HapticPattern) {
         let feedbackPattern: NSHapticFeedbackManager.FeedbackPattern
         switch pattern {
@@ -25,6 +29,7 @@ final class MacHapticProvider: HapticProvider {
         NSHapticFeedbackManager.defaultPerformer.perform(feedbackPattern, performanceTime: .now)
     }
 
+    /// Maps impact styles to macOS feedback patterns.
     private func impactFeedbackPattern(for style: HapticPattern.ImpactStyle) -> NSHapticFeedbackManager.FeedbackPattern {
         switch style {
         case .light, .soft:

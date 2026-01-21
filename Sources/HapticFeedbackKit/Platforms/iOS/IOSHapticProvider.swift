@@ -4,15 +4,21 @@ import UIKit
 import CoreHaptics
 #endif
 
+/// iOS/iPadOS provider backed by UIKit feedback generators and Core Haptics.
 final class IOSHapticProvider: HapticProvider {
     
+    /// Selection feedback generator reused across plays.
     private let selectionGenerator = UISelectionFeedbackGenerator()
+    /// Notification feedback generator reused across plays.
     private let notificationGenerator = UINotificationFeedbackGenerator()
+    /// Cached impact generators by style.
     private var impactGenerators: [HapticPattern.ImpactStyle: UIImpactFeedbackGenerator] = [:]
 #if canImport(CoreHaptics)
+    /// Lazily created Core Haptics engine for custom patterns.
     private var coreHapticsEngine: CHHapticEngine?
 #endif
 
+    /// Indicates whether Core Haptics is supported on this device.
     var supportsHaptics: Bool {
         #if canImport(CoreHaptics)
         return CHHapticEngine.capabilitiesForHardware().supportsHaptics
@@ -21,6 +27,7 @@ final class IOSHapticProvider: HapticProvider {
         #endif
     }
 
+    /// Prepares generators or Core Haptics depending on the pattern.
     func prepare(_ pattern: HapticPattern) {
         switch pattern {
         case .impact(let style):
@@ -36,6 +43,7 @@ final class IOSHapticProvider: HapticProvider {
         }
     }
 
+    /// Plays the requested haptic pattern.
     func play(_ pattern: HapticPattern) {
         switch pattern {
         case .impact(let style):
@@ -51,6 +59,7 @@ final class IOSHapticProvider: HapticProvider {
         }
     }
 
+    /// Returns a cached impact generator for the requested style.
     private func impactGenerator(for style: HapticPattern.ImpactStyle) -> UIImpactFeedbackGenerator {
         if let generator = impactGenerators[style] {
             return generator
@@ -75,6 +84,7 @@ final class IOSHapticProvider: HapticProvider {
         return generator
     }
 
+    /// Maps library notification types to UIKit types.
     private func notificationType(for type: HapticPattern.NotificationType) -> UINotificationFeedbackGenerator.FeedbackType {
         switch type {
         case .success:
@@ -87,6 +97,7 @@ final class IOSHapticProvider: HapticProvider {
     }
 
 #if canImport(CoreHaptics)
+    /// Starts the Core Haptics engine for custom patterns.
     private func prepareCustom() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
@@ -99,6 +110,7 @@ final class IOSHapticProvider: HapticProvider {
         }
     }
 
+    /// Plays a Core Haptics pattern using the engine.
     private func playCustom(_ custom: CustomHapticPattern) {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {

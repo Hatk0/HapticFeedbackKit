@@ -9,11 +9,15 @@ import GameController
 import CoreHaptics
 #endif
 
+/// Smoke tests for the extras module availability.
 final class HapticFeedbackKitExtrasTests: XCTestCase {
+    
+    /// Confirms the extras module is loadable.
     func testExtrasModuleLoads() {
         XCTAssertTrue(true)
     }
 
+    /// Ensures API symbols are visible under expected platform gates.
     func testCompileTimeAvailability() {
         #if os(iOS)
         if #available(iOS 17.5, *) {

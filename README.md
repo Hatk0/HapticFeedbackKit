@@ -88,4 +88,4 @@ func setupControllerHaptics(controller: GCController) {
 Add new patterns by extending `HapticPattern` and mapping in each platform provider.
 
 ## License
-MIT (or your license here)
+MIT

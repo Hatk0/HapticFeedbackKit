@@ -1,6 +1,8 @@
 import Foundation
 
+/// Creates the default provider for the current platform.
 enum HapticProviderFactory {
+    /// Returns a provider matching the active OS.
     static func makeDefault() -> HapticProvider {
         #if os(iOS)
         return IOSHapticProvider()
