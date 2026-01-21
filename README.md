@@ -7,6 +7,7 @@ Unified haptic feedback API for iOS, iPadOS, watchOS, macOS, and tvOS with UIKit
 - Built-in patterns: impact, notification, selection
 - Custom Core Haptics support on iOS/iPadOS
 - SwiftUI helper for trigger-based feedback
+- Extras module for Apple Pencil Pro and GameController haptics
 
 ## Requirements
 - Swift 5.9
@@ -58,11 +59,30 @@ let pattern = try CHHapticPattern(events: events, parameters: [])
 HapticEngine.shared.play(.custom(CustomHapticPattern(pattern)))
 ```
 
+### Extras (Apple Pencil Pro and GameController)
+```swift
+import HapticFeedbackKitExtras
+
+@available(iOS 17.5, *)
+func setupPencilHaptics(canvasView: UIView) {
+    let haptics = ApplePencilHaptics(view: canvasView)
+    haptics.prepare()
+    haptics.alignmentOccurred(at: CGPoint(x: 12, y: 24))
+}
+
+func setupControllerHaptics(controller: GCController) {
+    if let engine = GameControllerHaptics.makeEngine(for: controller) {
+        // Use CHHapticEngine with controller haptics.
+    }
+}
+```
+
 ## Platform behavior
 - iOS/iPadOS: UIKit generators and Core Haptics for custom patterns
 - watchOS: mapped to `WKHapticType`
 - macOS: `NSHapticFeedbackManager`
 - tvOS: no-op (no system haptics API)
+- visionOS: Extras module adds GCStylus support when available
 
 ## Extensibility
 Add new patterns by extending `HapticPattern` and mapping in each platform provider.

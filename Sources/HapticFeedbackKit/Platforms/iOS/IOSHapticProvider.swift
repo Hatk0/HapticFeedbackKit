@@ -95,7 +95,7 @@ final class IOSHapticProvider: HapticProvider {
             }
             try coreHapticsEngine?.start()
         } catch {
-            // Ignore Core Haptics errors; fallback is a no-op.
+            HapticLogger.error("Core Haptics prepare failed: \(error)")
         }
     }
 
@@ -111,7 +111,7 @@ final class IOSHapticProvider: HapticProvider {
             let player = try coreHapticsEngine?.makePlayer(with: custom.pattern)
             try player?.start(atTime: 0)
         } catch {
-            // Ignore Core Haptics errors; fallback is a no-op.
+            HapticLogger.error("Core Haptics play failed: \(error)")
         }
     }
 #endif
