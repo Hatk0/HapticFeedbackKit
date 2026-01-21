@@ -117,9 +117,8 @@ final class IOSHapticProvider: HapticProvider {
             if coreHapticsEngine == nil {
                 coreHapticsEngine = try CHHapticEngine()
             }
-            if coreHapticsEngine?.isRunning == false {
-                try coreHapticsEngine?.start()
-            }
+            // Some SDKs lack isRunning; starting is safe and will no-op if already running.
+            try coreHapticsEngine?.start()
             let player = try coreHapticsEngine?.makePlayer(with: custom.pattern)
             try player?.start(atTime: 0)
         } catch {

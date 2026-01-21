@@ -21,7 +21,7 @@ Unified haptic feedback API for iOS, iPadOS, watchOS, macOS, and tvOS with UIKit
 Add the package to your project or `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/your-org/HapticFeedbackKit", from: "0.1.0")
+.package(url: "https://github.com/your-org/HapticFeedbackKit", from: "1.0.1")
 ```
 
 ## Usage
