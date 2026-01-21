@@ -9,16 +9,25 @@ let package = Package(
         .macOS(.v10_15),
         .watchOS(.v6),
         .tvOS(.v13),
+        .visionOS(.v1),
     ],
     products: [
         .library(
             name: "HapticFeedbackKit",
             targets: ["HapticFeedbackKit"]
         ),
+        .library(
+            name: "HapticFeedbackKitExtras",
+            targets: ["HapticFeedbackKitExtras"]
+        ),
     ],
     targets: [
         .target(
             name: "HapticFeedbackKit"
+        ),
+        .target(
+            name: "HapticFeedbackKitExtras",
+            dependencies: ["HapticFeedbackKit"]
         ),
         .testTarget(
             name: "HapticFeedbackKitTests",
