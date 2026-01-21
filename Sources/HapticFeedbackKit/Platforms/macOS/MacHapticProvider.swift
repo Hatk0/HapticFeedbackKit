@@ -2,6 +2,7 @@
 import AppKit
 
 final class MacHapticProvider: HapticProvider {
+    
     var supportsHaptics: Bool { true }
 
     func prepare(_ pattern: HapticPattern) {}

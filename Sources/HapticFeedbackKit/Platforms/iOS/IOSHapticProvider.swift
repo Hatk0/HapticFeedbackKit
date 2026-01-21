@@ -5,6 +5,7 @@ import CoreHaptics
 #endif
 
 final class IOSHapticProvider: HapticProvider {
+    
     private let selectionGenerator = UISelectionFeedbackGenerator()
     private let notificationGenerator = UINotificationFeedbackGenerator()
     private var impactGenerators: [HapticPattern.ImpactStyle: UIImpactFeedbackGenerator] = [:]

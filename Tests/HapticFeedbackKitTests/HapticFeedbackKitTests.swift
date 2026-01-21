@@ -3,6 +3,7 @@ import XCTest
 
 @MainActor
 final class HapticFeedbackKitTests: XCTestCase {
+    
     func testEngineDelegatesToProvider() {
         let provider = TestProvider()
         let engine = HapticEngine(provider: provider)

@@ -3,6 +3,7 @@ import Combine
 import SwiftUI
 
 public extension View {
+    
     func hapticFeedback<T: Equatable>(_ pattern: HapticPattern, trigger: T) -> some View {
         modifier(HapticTriggerModifier(pattern: pattern, trigger: trigger))
     }

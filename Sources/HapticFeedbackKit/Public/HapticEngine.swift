@@ -2,6 +2,7 @@ import Foundation
 
 @MainActor
 public final class HapticEngine {
+    
     public static let shared = HapticEngine()
 
     private let provider: HapticProvider

@@ -2,6 +2,7 @@
 import WatchKit
 
 final class WatchHapticProvider: HapticProvider {
+    
     var supportsHaptics: Bool { true }
 
     func prepare(_ pattern: HapticPattern) {}
